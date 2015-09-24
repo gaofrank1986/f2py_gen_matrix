@@ -91,6 +91,35 @@ contains
     !==
     !==
     !=========================================================
+    
+    subroutine intg_branch(flag,ielem,inode,xp,yp,zp,amatrix,bmatrix,ii) 
+                    
+        implicit none
+
+        integer,intent(in) :: flag,ielem,inode,ii
+        real(8),intent(in) :: xp,yp,zp
+        real(8),intent(out) :: amatrix(4,8),bmatrix(4,8)
+
+        if (flag.eq.0) then
+            IF (II .EQ. 0)   THEN 
+            !CALL NORM_ELE1(IELEM,XP,YP,ZP,AMATRIX,BMATRIX)
+                print *,"call norm_elem1"
+            ELSE 
+            !CALL SING_ELE1(INODE,IELEM,NODQUA(INODE),XP,YP,ZP,&
+            !                  & AMATRIX,BMATRIX)
+                print *,"call sing_elem1"
+            END IF                
+        else
+            IF (II .EQ. 0)   THEN 
+            !CALL NORM_ELE0(IELEM,XP,YP,ZP,AMATRIX,BMATRIX)
+                print *,"call norm_elem0"
+            ELSE 
+            !CALL SING_ELE0(INODE,IELEM,NODQUA(INODE),XP,YP,ZP,&
+            !                  & AMATRIX,BMATRIX)
+                print *,"call sing_elem0"
+            END IF                
+        end if
+    end subroutine 
 
     subroutine comp_link(ielem,inode,ii)
         implicit none
@@ -147,12 +176,18 @@ contains
                                          &RSN(IS,IP)*BMATRIX(IS,J)
                         endif
                     ELSE
+                        if (r_flag.eq.1) then
                         PHI=POXY(XSB,YSB,ZSB)
                         BMATA(INODE,IP)=BMATA(INODE,IP)+RSN(IS,IP)*AMATRIX(IS,J)*PHI
+                        else
+                        BMATA(INODE,IP)=BMATA(INODE,IP)+RSN(IS,IP)*&
+                                        &AMATRIX(IS,J)*POXY(XSB,YSB,ZSB)
+                        endif
                     ENDIF
+                    if (r_flag.eq.1) then
 
-                    BMATA(INODE,IP)=BMATA(INODE,IP)-RSN(IS,IP)*BMATRIX(IS,J)*DPDN 
-
+                        BMATA(INODE,IP)=BMATA(INODE,IP)-RSN(IS,IP)*BMATRIX(IS,J)*DPDN 
+                    endif
                 ENDDO!IS
             
                 if (s_flag .eq.0) then
