@@ -16,7 +16,7 @@ module gen_matrix
                         & 1.,  1., -1., -1.,& 
                         & 1., -1., -1.,  1./),(/4,4/)) 
 contains
-    include './mfunc/solid.f90'    
+    include '.\mfunc\solid.f90'    
     subroutine test()
             print *, rsn
     end subroutine

@@ -1,0 +1,29 @@
+ subroutine intg_branch(flag,ielem,inode,xp,yp,zp,amatrix,bmatrix,ii)
+ 96 
+ 97         implicit none
+ 98 
+ 99         integer,intent(in) :: flag,ielem,inode,ii
+100         real(8),intent(in) :: xp,yp,zp
+101         real(8),intent(out) :: amatrix(4,8),bmatrix(4,8)
+102 
+103         if (flag.eq.0) then
+104             IF (II .EQ. 0)   THEN
+105             !CALL NORM_ELE1(IELEM,XP,YP,ZP,AMATRIX,BMATRIX)
+106                 print *,"call norm_elem1"
+107             ELSE
+108             !CALL SING_ELE1(INODE,IELEM,NODQUA(INODE),XP,YP,ZP,&
+109             !                  & AMATRIX,BMATRIX)
+110                 print *,"call sing_elem1"
+111             END IF
+112         else
+113             IF (II .EQ. 0)   THEN
+114             !CALL NORM_ELE0(IELEM,XP,YP,ZP,AMATRIX,BMATRIX)
+115                 print *,"call norm_elem0"
+116             ELSE
+117             !CALL SING_ELE0(INODE,IELEM,NODQUA(INODE),XP,YP,ZP,&
+118             !                  & AMATRIX,BMATRIX)
+119                 print *,"call sing_elem0"
+120             END IF
+121         end if
+122     end subroutine
+
