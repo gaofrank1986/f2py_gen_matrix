@@ -7,10 +7,15 @@
 ! ¿ÉÒÔ¿ŒÂÇ·Ö±ð¹ØÓÚxÖáºÍÖá¶Ô³Æ£¬ÒÔŒ°Í¬Ê±¹ØÓÚxÖáºÍyÖá¶Ô³ÆµÄÇéÐÎ
 ! *****************************************************************
 !
-       SUBROUTINE SOLIDANGLE(INODE,NNODE,NELEM,NCN,NCON,NODQUA,&
-     &                        H,XYZ,DXYZE,SANGLE)
+module matrix_funcs
+    use mesh
+    use mod_func
 
-!      use mesh 
+    implicit none
+
+contains
+    SUBROUTINE SOLIDANGLE(INODE,NNODE,NELEM,NCN,NCON,NODQUA,&
+                             & H,XYZ,DXYZE,SANGLE)
         IMPLICIT   NONE 
 !   
        INTEGER,INTENT(IN):: INODE,NNODE,NELEM
@@ -807,39 +812,4 @@
       MCELE=4*MCELE
 
       END
-!
- SUBROUTINE SPFUNC8(SI,ETA,SF,DSF)
-        IMPLICIT  NONE
-
-      REAL*8,INTENT(IN) :: SI,ETA
-      REAL*8,INTENT(OUT):: SF(8),DSF(2,8)
-
-        SF(1)=-0.25D0*(1.0D0-SI)*(1.0D0-ETA)*(1.0D0+SI+ETA)
-        SF(2)= 0.5D0 *(1.0D0-SI*SI)*(1.0-ETA)
-        SF(3)= 0.25D0*(1.0D0+SI)*(1.0D0-ETA)*(SI-ETA-1.0D0)
-        SF(4)= 0.5D0 *(1.0D0-ETA*ETA)*(1.0D0+SI)
-        SF(5)= 0.25D0*(1.0D0+SI)*(1.0D0+ETA)*(SI+ETA-1.0D0)
-        SF(6)= 0.5D0 *(1.0-SI*SI)*(1.0D0+ETA)
-        SF(7)=-0.25D0*(1.0D0-SI)*(1.0D0+ETA)*(SI-ETA+1.0D0)
-        SF(8)= 0.5D0 *(1.0D0-ETA*ETA)*(1.0-SI)            
-      
-        DSF(1,1)= 0.25D0*(2.0D0*SI+ETA)*(1.0D0-ETA)
-        DSF(1,2)=-SI*(1.0D0-ETA)        
-        DSF(1,3)= 0.25D0*(2.0D0*SI-ETA)*(1.0D0-ETA)
-        DSF(1,4)= 0.5D0*(1.0D0-ETA*ETA)
-        DSF(1,5)= 0.25D0*(2.0*SI+ETA)*(1.0D0+ETA)
-        DSF(1,6)=-SI*(1.0D0+ETA)     
-        DSF(1,7)= 0.25D0*(2.0D0*SI-ETA)*(1.0D0+ETA)
-        DSF(1,8)=-0.5D0*(1.0-ETA*ETA)
-
-        DSF(2,1)= 0.25D0*(SI+2.0D0*ETA)*(1.0D0-SI)
-        DSF(2,2)=-0.5D0*(1.0-SI*SI)
-        DSF(2,3)= 0.25D0*(1.0D0+SI)*(2.0D0*ETA-SI)
-        DSF(2,4)=-(1.0D0+SI)*ETA
-        DSF(2,5)= 0.25*(1.0D0+SI)*(SI+2.0D0*ETA)
-        DSF(2,6)= 0.5D0*(1.0D0-SI*SI)
-        DSF(2,7)=-0.25D0*(1.0D0-SI)*(SI-2.0D0*ETA)
-        DSF(2,8)=-(1.0D0-SI)*ETA   
-
-    RETURN
-    END SUBROUTINE SPFUNC8
+end module

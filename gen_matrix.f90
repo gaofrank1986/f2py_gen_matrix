@@ -3,6 +3,7 @@ module gen_matrix
     
     use mesh!mesh data
     use mod_func!supplement funcs
+    use matrix_funcs
     implicit none
     
     real(8),allocatable :: amata(:,:,:),bmata(:,:)
@@ -80,7 +81,7 @@ contains
             end do!ielem = 1,nelemf
 
             do ielem = nelemf+1,nelem
-                call omp_link(ielem,inode,ii)
+                call comp_link(ielem,inode,ii)
  !               call wrapper_func(1,ielem,inode,xp,yp,zp,amatrix,bmatrix,ii) 
             end do
         enddo
